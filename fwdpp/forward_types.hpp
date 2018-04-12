@@ -39,6 +39,7 @@ namespace fwdpp
           Do with it what you will. Fits into padded space in this struct,
           and doesn't affect sizeof(mutation).
         */
+        uint_t n;
         std::uint16_t xtra;
         /// Is the mutation neutral or not?
         bool neutral;

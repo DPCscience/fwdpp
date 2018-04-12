@@ -86,21 +86,33 @@ namespace fwdpp
         static_assert(
             typename traits::is_mutation<typename mcont_t::value_type>::type(),
             "mutation_type must be derived from fwdpp::mutation_base");
-        assert(mcounts.size() == mutations.size());
-        for (unsigned i = 0; i < mcounts.size(); ++i)
+        //assert(mcounts.size() == mutations.size());
+        for(auto & m : mutations)
+        {
+            if(m.n==twoN)
             {
-                assert(mcounts[i] <= twoN);
-                if (mcounts[i] == twoN)
-                    {
-                        fixations.push_back(mutations[i]);
-                        fixation_times.push_back(generation);
-                        mcounts[i] = 0; // set count to zero to mark mutation
-                                        // as "recyclable"
-                        lookup.erase(mutations[i].pos);
-                    }
-                if (!mcounts[i])
-                    lookup.erase(mutations[i].pos);
+                       fixations.push_back(m);
+                       fixation_times.push_back(generation);
+                       m.n = 0; // set count to zero to mark mutation
+                                       // as "recyclable"
+                       lookup.erase(m.pos);
             }
+            if(!m.n) { lookup.erase(m.pos); }
+        }
+        //for (unsigned i = 0; i < mcounts.size(); ++i)
+        //    {
+        //        assert(mcounts[i] <= twoN);
+        //        if (mcounts[i] == twoN)
+        //            {
+        //                fixations.push_back(mutations[i]);
+        //                fixation_times.push_back(generation);
+        //                mcounts[i] = 0; // set count to zero to mark mutation
+        //                                // as "recyclable"
+        //                lookup.erase(mutations[i].pos);
+        //            }
+        //        if (!mcounts[i])
+        //            lookup.erase(mutations[i].pos);
+        //    }
     }
 
     /*!

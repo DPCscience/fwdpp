@@ -25,6 +25,7 @@ using mtype = fwdpp::popgenmut;
 int
 main(int argc, char **argv)
 {
+    std::cout << sizeof(fwdpp::popgenmut) << '\n';
     if (argc != 8)
         {
             std::cerr << "Too few arguments\n"
